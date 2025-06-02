@@ -1,0 +1,5 @@
+/Users/pedromorais/Desktop/programming/BlackoutGuard/obj/Debug/net9.0/BlackoutGuard.GeneratedMSBuildEditorConfig.editorconfig
+/Users/pedromorais/Desktop/programming/BlackoutGuard/obj/Debug/net9.0/BlackoutGuard.AssemblyInfoInputs.cache
+/Users/pedromorais/Desktop/programming/BlackoutGuard/obj/Debug/net9.0/BlackoutGuard.AssemblyInfo.cs
+/Users/pedromorais/Desktop/programming/BlackoutGuard/obj/Debug/net9.0/BlackoutGuard.csproj.CoreCompileInputs.cache
+/Users/pedromorais/Desktop/programming/BlackoutGuard/obj/Debug/net9.0/BlackoutGuard.sourcelink.json

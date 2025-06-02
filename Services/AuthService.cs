@@ -1,4 +1,7 @@
 using System;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,38 +42,12 @@ namespace BlackoutGuard.Services
         {
             try
             {
-                // Validate inputs
-                if (string.IsNullOrWhiteSpace(username))
-                    throw new ArgumentException("Username cannot be empty", nameof(username));
-                
-                if (string.IsNullOrWhiteSpace(password))
-                    throw new ArgumentException("Password cannot be empty", nameof(password));
-                
-                // Find the user by username
-                var user = await _dataService.GetUserByUsernameAsync(username);
+                // Attempt to get the authenticated user
+                var user = await AuthenticateUserAsync(username, password);
                 if (user == null)
                 {
-                    _logService.LogWarning($"Login attempt failed: User not found: {username}");
                     return false;
                 }
-                
-                // Check if the account is active
-                if (!user.IsActive)
-                {
-                    _logService.LogWarning($"Login attempt failed: Account is disabled: {username}");
-                    return false;
-                }
-                
-                // Verify the password
-                if (!VerifyPassword(password, user.PasswordHash, user.Salt))
-                {
-                    _logService.LogWarning($"Login attempt failed: Invalid password for user: {username}");
-                    return false;
-                }
-                
-                // Update last login and save
-                user.UpdateLastLogin();
-                await _dataService.UpdateUserAsync(user);
                 
                 // Set the current user
                 _currentUser = user;
@@ -101,22 +78,19 @@ namespace BlackoutGuard.Services
         /// <summary>
         /// Registers a new user
         /// </summary>
-        public async Task<User> RegisterUserAsync(string name, string username, string password, string email, UserRole role)
+        public async Task<User> RegisterUserAsync(string username, string password, string fullName, UserRole role)
         {
             try
             {
                 // Validate inputs
-                if (string.IsNullOrWhiteSpace(name))
-                    throw new ArgumentException("Name cannot be empty", nameof(name));
+                if (string.IsNullOrWhiteSpace(fullName))
+                    throw new ArgumentException("Full name cannot be empty", nameof(fullName));
                 
                 if (string.IsNullOrWhiteSpace(username))
                     throw new ArgumentException("Username cannot be empty", nameof(username));
                 
                 if (string.IsNullOrWhiteSpace(password))
                     throw new ArgumentException("Password cannot be empty", nameof(password));
-                
-                if (string.IsNullOrWhiteSpace(email))
-                    throw new ArgumentException("Email cannot be empty", nameof(email));
                 
                 // Check if username already exists
                 var existingUser = await _dataService.GetUserByUsernameAsync(username);
@@ -130,7 +104,17 @@ namespace BlackoutGuard.Services
                 var passwordHash = HashPassword(password, salt);
                 
                 // Create and save the new user
-                var user = new User(name, username, passwordHash, salt, email, role);
+                var user = new User
+                {
+                    Username = username,
+                    FullName = fullName,
+                    PasswordHash = passwordHash,
+                    Salt = salt,
+                    Role = role,
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow,
+                    LastLoginAt = null
+                };
                 await _dataService.SaveUserAsync(user);
                 
                 // Log the registration
@@ -145,7 +129,249 @@ namespace BlackoutGuard.Services
         }
 
         /// <summary>
+        /// Gets all users in the system
+        /// </summary>
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            try
+            {
+                return await _dataService.GetAllUsersAsync();
+            }
+            catch (Exception ex)
+            {
+                _logService.LogError($"Error getting all users: {ex.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Gets a user by username
+        /// </summary>
+        public async Task<User?> GetUserByUsernameAsync(string username)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(username))
+                    throw new ArgumentException("Username cannot be empty", nameof(username));
+                
+                return await _dataService.GetUserByUsernameAsync(username);
+            }
+            catch (Exception ex)
+            {
+                _logService.LogError($"Error getting user by username: {ex.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Changes a user's role
+        /// </summary>
+        public async Task ChangeUserRoleAsync(string username, UserRole newRole)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(username))
+                    throw new ArgumentException("Username cannot be empty", nameof(username));
+                
+                // Get the user
+                var user = await _dataService.GetUserByUsernameAsync(username);
+                if (user == null)
+                    throw new InvalidOperationException($"User not found: {username}");
+                
+                // Don't allow changing the role of the last administrator
+                if (user.Role == UserRole.Administrator && newRole != UserRole.Administrator)
+                {
+                    var allUsers = await _dataService.GetAllUsersAsync();
+                    int adminCount = allUsers.Count(u => u.Role == UserRole.Administrator);
+                    
+                    if (adminCount <= 1)
+                        throw new InvalidOperationException("Cannot change the role of the last administrator");
+                }
+                
+                // Update the user's role
+                user.Role = newRole;
+                await _dataService.UpdateUserAsync(user);
+                
+                _logService.LogSecurity($"User role changed for {username} to {newRole}");
+            }
+            catch (Exception ex)
+            {
+                _logService.LogError($"Error changing user role: {ex.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Deactivates a user account
+        /// </summary>
+        public async Task DeactivateUserAsync(string username)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(username))
+                    throw new ArgumentException("Username cannot be empty", nameof(username));
+                
+                // Get the user
+                var user = await _dataService.GetUserByUsernameAsync(username);
+                if (user == null)
+                    throw new InvalidOperationException($"User not found: {username}");
+                
+                // Don't allow deactivating the last administrator
+                if (user.Role == UserRole.Administrator)
+                {
+                    var allUsers = await _dataService.GetAllUsersAsync();
+                    int activeAdminCount = allUsers.Count(u => u.Role == UserRole.Administrator && u.IsActive);
+                    
+                    if (activeAdminCount <= 1)
+                        throw new InvalidOperationException("Cannot deactivate the last administrator account");
+                }
+                
+                // Deactivate the user
+                user.IsActive = false;
+                await _dataService.UpdateUserAsync(user);
+                
+                _logService.LogSecurity($"User account deactivated: {username}");
+            }
+            catch (Exception ex)
+            {
+                _logService.LogError($"Error deactivating user: {ex.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Activates a user account
+        /// </summary>
+        public async Task ActivateUserAsync(string username)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(username))
+                    throw new ArgumentException("Username cannot be empty", nameof(username));
+                
+                // Get the user
+                var user = await _dataService.GetUserByUsernameAsync(username);
+                if (user == null)
+                    throw new InvalidOperationException($"User not found: {username}");
+                
+                // Activate the user
+                user.IsActive = true;
+                await _dataService.UpdateUserAsync(user);
+                
+                _logService.LogSecurity($"User account activated: {username}");
+            }
+            catch (Exception ex)
+            {
+                _logService.LogError($"Error activating user: {ex.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Resets a user's password and generates a random password
+        /// </summary>
+        /// <param name="username">The username of the user</param>
+        /// <returns>The newly generated random password</returns>
+        public async Task<string> ResetPasswordAsync(string username)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(username))
+                    throw new ArgumentException("Username cannot be empty", nameof(username));
+                
+                // Generate a new random password
+                string newPassword = CryptoUtil.GenerateRandomString(12);
+                
+                // Reset the password with the generated one
+                await ResetPasswordAsync(username, newPassword);
+                
+                return newPassword;
+            }
+            catch (Exception ex)
+            {
+                _logService.LogError($"Error resetting password: {ex.Message}");
+                throw;
+            }
+        }
+        
+        /// <summary>
+        /// Resets a user's password to a specified new password
+        /// </summary>
+        /// <param name="username">The username of the user</param>
+        /// <param name="newPassword">The new password to set</param>
+        /// <returns>Task representing the asynchronous operation</returns>
+        public async Task ResetPasswordAsync(string username, string newPassword)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(username))
+                    throw new ArgumentException("Username cannot be empty", nameof(username));
+                
+                if (string.IsNullOrWhiteSpace(newPassword))
+                    throw new ArgumentException("New password cannot be empty", nameof(newPassword));
+                
+                // Get the user
+                var user = await _dataService.GetUserByUsernameAsync(username);
+                if (user == null)
+                    throw new InvalidOperationException($"User not found: {username}");
+                
+                // Hash the new password
+                var salt = GenerateSalt();
+                var passwordHash = HashPassword(newPassword, salt);
+                
+                // Update the user
+                user.PasswordHash = passwordHash;
+                user.Salt = salt;
+                await _dataService.UpdateUserAsync(user);
+                
+                _logService.LogSecurity($"Password reset for user: {username}");
+            }
+            catch (Exception ex)
+            {
+                _logService.LogError($"Error resetting password: {ex.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Changes a user's password
+        /// </summary>
+        public async Task ChangePasswordAsync(string username, string newPassword)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(username))
+                    throw new ArgumentException("Username cannot be empty", nameof(username));
+                
+                if (string.IsNullOrWhiteSpace(newPassword))
+                    throw new ArgumentException("New password cannot be empty", nameof(newPassword));
+                
+                // Get the user
+                var user = await _dataService.GetUserByUsernameAsync(username);
+                if (user == null)
+                    throw new InvalidOperationException($"User not found: {username}");
+                
+                // Hash the new password
+                var salt = GenerateSalt();
+                var passwordHash = HashPassword(newPassword, salt);
+                
+                // Update the user
+                user.PasswordHash = passwordHash;
+                user.Salt = salt;
+                await _dataService.UpdateUserAsync(user);
+                
+                // Log the password change
+                _logService.LogInfo($"Password changed for user: {username}");
+            }
+            catch (Exception ex)
+            {
+                _logService.LogError($"Error during password change: {ex.Message}");
+                throw;
+            }
+        }
+        
+        /// <summary>
+        /// Changes a user's password (with current password verification)
         /// </summary>
         public async Task ChangePasswordAsync(string username, string currentPassword, string newPassword)
         {
@@ -189,6 +415,55 @@ namespace BlackoutGuard.Services
             catch (Exception ex)
             {
                 _logService.LogError($"Error during password change: {ex.Message}");
+                throw;
+            }
+        }
+        
+        /// <summary>
+        /// Authenticates a user by username and password
+        /// </summary>
+        private async Task<User?> AuthenticateUserAsync(string username, string password)
+        {
+            try
+            {
+                // Validate inputs
+                if (string.IsNullOrWhiteSpace(username))
+                    throw new ArgumentException("Username cannot be empty", nameof(username));
+                
+                if (string.IsNullOrWhiteSpace(password))
+                    throw new ArgumentException("Password cannot be empty", nameof(password));
+                
+                // Find the user by username
+                var user = await _dataService.GetUserByUsernameAsync(username);
+                if (user == null)
+                {
+                    _logService.LogWarning($"Login attempt failed: User not found: {username}");
+                    return null;
+                }
+                
+                // Check if the account is active
+                if (!user.IsActive)
+                {
+                    _logService.LogWarning($"Login attempt failed: Account is disabled: {username}");
+                    return null;
+                }
+                
+                // Verify the password
+                if (!VerifyPassword(password, user.PasswordHash, user.Salt))
+                {
+                    _logService.LogWarning($"Login attempt failed: Invalid password for user: {username}");
+                    return null;
+                }
+                
+                // Update last login and save
+                user.LastLoginAt = DateTime.UtcNow;
+                await _dataService.UpdateUserAsync(user);
+                
+                return user;
+            }
+            catch (Exception ex)
+            {
+                _logService.LogError($"Error during authentication: {ex.Message}");
                 throw;
             }
         }

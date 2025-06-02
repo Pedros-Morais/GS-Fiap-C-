@@ -1,6 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using BlackoutGuard.Models;
 
 namespace BlackoutGuard.Services
 {
@@ -143,6 +147,105 @@ namespace BlackoutGuard.Services
                 Console.WriteLine($"Error retrieving logs: {ex.Message}");
                 Console.ResetColor();
                 return $"Error retrieving logs: {ex.Message}";
+            }
+        }
+
+        /// <summary>
+        /// Gets log entries related to a specific user
+        /// </summary>
+        /// <param name="username">The username to filter logs for</param>
+        /// <returns>A list of log entries for the specified user</returns>
+        public async Task<List<string>> GetUserLogsAsync(string username)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(username))
+                    throw new ArgumentException("Username cannot be empty", nameof(username));
+                
+                var result = new List<string>();
+                var logFiles = Directory.GetFiles(_logDirectory, "blackoutguard-*.log");
+                
+                // Sort log files by date (newest first)
+                Array.Sort(logFiles, (a, b) => String.Compare(b, a, StringComparison.Ordinal));
+                
+                foreach (var logFile in logFiles)
+                {
+                    var logContent = await File.ReadAllTextAsync(logFile);
+                    var logLines = logContent.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+                    
+                    // Filter lines containing the username
+                    var userLines = logLines.Where(line => 
+                        line.Contains(username, StringComparison.OrdinalIgnoreCase) || 
+                        (line.Contains("User") && line.Contains(username, StringComparison.OrdinalIgnoreCase)))
+                        .ToList();
+                    
+                    result.AddRange(userLines);
+                }
+                
+                return result;
+            }
+            catch (Exception ex)
+            {
+                LogError($"Error retrieving user logs: {ex.Message}");
+                return new List<string>();
+            }
+        }
+
+        /// <summary>
+        /// Gets log entries related to a specific user with a limit on the number of entries
+        /// </summary>
+        /// <param name="username">The username to filter logs for</param>
+        /// <param name="limit">Maximum number of log entries to return (0 for no limit)</param>
+        /// <returns>A list of log entries for the specified user</returns>
+        public async Task<List<LogEntry>> GetUserLogsAsync(string username, int limit)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(username))
+                    throw new ArgumentException("Username cannot be empty", nameof(username));
+                
+                var result = new List<LogEntry>();
+                var logFiles = Directory.GetFiles(_logDirectory, "blackoutguard-*.log");
+                
+                // Sort log files by date (newest first)
+                Array.Sort(logFiles, (a, b) => String.Compare(b, a, StringComparison.Ordinal));
+                
+                foreach (var logFile in logFiles)
+                {
+                    if (limit > 0 && result.Count >= limit)
+                        break;
+                        
+                    var logContent = await File.ReadAllTextAsync(logFile);
+                    var logLines = logContent.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+                    
+                    // Filter lines containing the username
+                    var userLines = logLines.Where(line => 
+                        line.Contains(username, StringComparison.OrdinalIgnoreCase) || 
+                        (line.Contains("User") && line.Contains(username, StringComparison.OrdinalIgnoreCase)))
+                        .ToList();
+                    
+                    foreach (var line in userLines)
+                    {
+                        if (limit > 0 && result.Count >= limit)
+                            break;
+                            
+                        // Parse the log entry
+                        var parts = line.Split(new[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
+                        if (parts.Length >= 3)
+                        {                        
+                            var timestamp = DateTime.Parse(parts[0].Trim());
+                            var message = line.Substring(line.IndexOf(']') + 1).Trim();
+                            result.Add(new LogEntry { Timestamp = timestamp, Message = message });
+                        }
+                    }
+                }
+                
+                return result;
+            }
+            catch (Exception ex)
+            {
+                LogError($"Error retrieving user logs: {ex.Message}");
+                return new List<LogEntry>();
             }
         }
 

@@ -50,6 +50,9 @@ namespace BlackoutGuard.Models
         // User who resolved the threat (if applicable)
         public string ResolvedBy { get; set; }
         
+        // User who detected the threat (for UI compatibility)
+        public string DetectedBy { get; set; }
+        
         // When the threat was resolved (if applicable)
         public DateTime? ResolvedAt { get; set; }
 
@@ -125,6 +128,9 @@ namespace BlackoutGuard.Models
         
         // When the action was performed
         public DateTime PerformedAt { get; set; }
+        
+        // Timestamp for UI compatibility
+        public DateTime Timestamp => PerformedAt;
     }
 
     /// <summary>
@@ -152,7 +158,11 @@ namespace BlackoutGuard.Models
         ConfigurationError, // Security misconfigurations
         ZeroDay,           // Previously unknown vulnerability
         RansomwareAttack,  // Ransomware attack
-        Other              // Other types of threats
+        Other,             // Other types of threats
+        Insider,           // Insider threats
+        APT,               // Advanced Persistent Threat
+        Ransomware,        // Ransomware attacks
+        SocialEngineering  // Social engineering attacks
     }
 
     /// <summary>
@@ -160,9 +170,10 @@ namespace BlackoutGuard.Models
     /// </summary>
     public enum ThreatStatus
     {
-        Active,    // Threat is currently active
-        Mitigated, // Threat has been mitigated but not fully resolved
-        Resolved,  // Threat has been completely resolved
-        FalseAlarm // Determined to be a false alarm
+        Active,       // Threat is currently active
+        Mitigated,    // Threat has been mitigated but not fully resolved
+        Resolved,     // Threat has been completely resolved
+        FalseAlarm,   // Determined to be a false alarm
+        FalsePositive // Confirmed to be a false positive
     }
 }

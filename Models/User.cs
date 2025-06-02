@@ -12,7 +12,7 @@ namespace BlackoutGuard.Models
         public Guid Id { get; private set; }
         
         // User's full name
-        public string Name { get; set; }
+        public string FullName { get; set; }
         
         // Username for login purposes
         public string Username { get; set; }
@@ -35,7 +35,7 @@ namespace BlackoutGuard.Models
         public DateTime CreatedAt { get; private set; }
         
         // Last login timestamp
-        public DateTime? LastLogin { get; set; }
+        public DateTime? LastLoginAt { get; set; }
         
         // Whether the account is active
         public bool IsActive { get; set; }
@@ -49,10 +49,10 @@ namespace BlackoutGuard.Models
         }
 
         // Constructor with required fields
-        public User(string name, string username, string passwordHash, string salt, string email, UserRole role)
+        public User(string fullName, string username, string passwordHash, string salt, string email, UserRole role)
         {
             Id = Guid.NewGuid();
-            Name = name ?? throw new ArgumentNullException(nameof(name));
+            FullName = fullName ?? throw new ArgumentNullException(nameof(fullName));
             Username = username ?? throw new ArgumentNullException(nameof(username));
             PasswordHash = passwordHash ?? throw new ArgumentNullException(nameof(passwordHash));
             Salt = salt ?? throw new ArgumentNullException(nameof(salt));
@@ -67,7 +67,7 @@ namespace BlackoutGuard.Models
         /// </summary>
         public void UpdateLastLogin()
         {
-            LastLogin = DateTime.UtcNow;
+            LastLoginAt = DateTime.UtcNow;
         }
     }
 

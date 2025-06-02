@@ -31,6 +31,18 @@ namespace BlackoutGuard.Models
         // Type of the related entity
         public string RelatedEntityType { get; set; }
         
+        // Detailed description of the alert
+        public string Description { get; set; }
+        
+        // Source of the alert
+        public string Source { get; set; }
+        
+        // Related incident ID
+        public Guid? RelatedIncidentId { get; set; }
+        
+        // Related threat ID
+        public Guid? RelatedThreatId { get; set; }
+        
         // Whether the alert has been read
         public bool IsRead { get; set; }
         
@@ -48,6 +60,18 @@ namespace BlackoutGuard.Models
         
         // User who acknowledged the alert (if applicable)
         public string AcknowledgedBy { get; set; }
+        
+        // When the alert was triggered
+        public DateTime TriggeredAt { get; set; }
+        
+        // Property for UI compatibility
+        public bool Acknowledged => IsAcknowledged;
+        
+        // Related vulnerability ID
+        public Guid? RelatedVulnerabilityId { get; set; }
+        
+        // Comments provided during acknowledgement
+        public string AcknowledgementComments { get; set; }
 
         // Default constructor for deserialization
         public Alert()
@@ -138,6 +162,11 @@ namespace BlackoutGuard.Models
         AnomalyDetected,     // Unusual behavior detected
         AuditFinding,        // Finding from security audit
         ComplianceIssue,     // Compliance violation
-        SystemRecovery       // System recovery event
+        SystemRecovery,      // System recovery event
+        Security,            // Security-related alert
+        Operational,         // Operational issue alert
+        System,              // System-level alert
+        Infrastructure,      // Infrastructure-related alert
+        Environmental        // Environmental issue alert
     }
 }

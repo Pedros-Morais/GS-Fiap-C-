@@ -160,6 +160,9 @@ namespace BlackoutGuard.Models
         
         // When the action was performed
         public DateTime PerformedAt { get; set; }
+        
+        // Timestamp for UI compatibility
+        public DateTime Timestamp => PerformedAt;
     }
 
     /// <summary>
