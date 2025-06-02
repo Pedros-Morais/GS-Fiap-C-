@@ -95,3 +95,9 @@ Actual value was -1.
 [2025-06-02 17:15:13] [INFO] All services initialized successfully
 [2025-06-02 17:15:13] [SYSTEM] BlackoutGuard system started
 [2025-06-02 17:17:44] [SYSTEM] BlackoutGuard system shutting down
+[2025-06-02 17:25:42] [INFO] All services initialized successfully
+[2025-06-02 17:25:42] [SYSTEM] BlackoutGuard system started
+[2025-06-02 17:26:19] [ERROR] Error updating user: User with ID c3bcdfd1-0e7f-4255-86b6-d9781650a254 not found
+[2025-06-02 17:26:19] [ERROR] Error updating last login time: User with ID c3bcdfd1-0e7f-4255-86b6-d9781650a254 not found
+[2025-06-02 17:26:19] [INFO] User logged in successfully: teste
+[2025-06-02 17:26:19] [SECURITY] User teste logged in successfully
