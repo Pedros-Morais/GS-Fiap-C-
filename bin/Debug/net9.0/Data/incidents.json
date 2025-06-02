@@ -1,0 +1,23 @@
+[
+  {
+    "id": "7b91e1eb-fce1-40f6-a30a-5c0a5ffc2d18",
+    "title": "Teste",
+    "description": "testeee",
+    "occurredAt": "2005-12-01T00:00:00",
+    "reportedAt": "2025-06-02T18:47:58.313606Z",
+    "status": 0,
+    "severity": 2,
+    "type": 0,
+    "location": "testeee",
+    "affectedUsers": 5000,
+    "estimatedDuration": 240,
+    "actualDuration": null,
+    "reportedBy": "teste",
+    "assignedTo": null,
+    "resolvedBy": null,
+    "resolvedAt": null,
+    "rootCause": null,
+    "relatedThreatId": null,
+    "actions": []
+  }
+]

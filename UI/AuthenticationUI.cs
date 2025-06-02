@@ -27,13 +27,13 @@ namespace BlackoutGuard.UI
             while (true)
             {
                 Console.Clear();
-                ConsoleHelper.DisplayHeader("BLACKOUT GUARD - AUTHENTICATION");
+                ConsoleHelper.DisplayHeader("BLACKOUT GUARD - AUTENTICAÇÃO");
                 
-                Console.WriteLine("1. Login");
-                Console.WriteLine("2. Register New User");
-                Console.WriteLine("3. Exit");
+                Console.WriteLine("1. Entrar");
+                Console.WriteLine("2. Registrar Novo Usuário");
+                Console.WriteLine("3. Sair");
                 
-                Console.Write("\nSelect an option: ");
+                Console.Write("\nSelecione uma opção: ");
                 string? choice = Console.ReadLine();
                 
                 switch (choice)
@@ -54,7 +54,7 @@ namespace BlackoutGuard.UI
                         return (true, null); // Exit application
                         
                     default:
-                        ConsoleHelper.DisplayError("Invalid option. Please try again.");
+                        ConsoleHelper.DisplayError("Opção inválida. Por favor, tente novamente.");
                         ConsoleHelper.WaitForKeyPress();
                         break;
                 }
@@ -67,7 +67,7 @@ namespace BlackoutGuard.UI
         private async Task<User?> LoginAsync()
         {
             Console.Clear();
-            ConsoleHelper.DisplayHeader("USER LOGIN");
+            ConsoleHelper.DisplayHeader("LOGIN DE USUÁRIO");
             
             try
             {
@@ -79,7 +79,7 @@ namespace BlackoutGuard.UI
                 
                 if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
                 {
-                    ConsoleHelper.DisplayError("Username and password cannot be empty.");
+                    ConsoleHelper.DisplayError("Nome de usuário e senha não podem estar vazios.");
                     ConsoleHelper.WaitForKeyPress();
                     return null;
                 }
@@ -88,12 +88,12 @@ namespace BlackoutGuard.UI
                 
                 if (user != null)
                 {
-                    ConsoleHelper.DisplaySuccess($"Welcome, {user.Username}! You are logged in as {user.Role}.");
+                    ConsoleHelper.DisplaySuccess($"Bem-vindo, {user.Username}! Você está logado como {user.Role}.");
                     _logService.LogSecurity($"User {username} logged in successfully");
                 }
                 else
                 {
-                    ConsoleHelper.DisplayError("Invalid username or password.");
+                    ConsoleHelper.DisplayError("Nome de usuário ou senha inválidos.");
                     _logService.LogSecurity($"Failed login attempt for username {username}");
                 }
                 

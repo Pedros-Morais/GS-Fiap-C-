@@ -56,6 +56,30 @@ namespace BlackoutGuard.Services
         }
 
         /// <summary>
+        /// Ensures all required data directories exist
+        /// </summary>
+        public void EnsureDataDirectoriesExist()
+        {
+            // Create subdirectories for various data types
+            string[] subdirectories = {
+                "Backups",
+                "Exports",
+                "Reports",
+                "Temp"
+            };
+            
+            foreach (var subdir in subdirectories)
+            {
+                string path = Path.Combine(_dataDirectory, subdir);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                    _logService.LogInfo($"Created directory: {path}");
+                }
+            }
+        }
+        
+        /// <summary>
         /// Initializes data files if they don't exist
         /// </summary>
         private void InitializeDataFiles()

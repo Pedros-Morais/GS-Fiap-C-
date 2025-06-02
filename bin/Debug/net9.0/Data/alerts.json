@@ -1,0 +1,26 @@
+[
+  {
+    "id": "6494076c-c5d7-41ff-8fb7-a0cb3adc1ede",
+    "title": "New Incident: Teste",
+    "message": "New incident reported.\nSeverity: High\nType: PowerOutage\nLocation: testeee\nDescription: testeee",
+    "createdAt": "2025-06-02T18:47:58.336019Z",
+    "priority": 2,
+    "type": 1,
+    "relatedEntityId": "7b91e1eb-fce1-40f6-a30a-5c0a5ffc2d18",
+    "relatedEntityType": "Incident",
+    "description": null,
+    "source": null,
+    "relatedIncidentId": null,
+    "relatedThreatId": null,
+    "isRead": false,
+    "readAt": null,
+    "readBy": null,
+    "isAcknowledged": false,
+    "acknowledgedAt": null,
+    "acknowledgedBy": null,
+    "triggeredAt": "0001-01-01T00:00:00",
+    "acknowledged": false,
+    "relatedVulnerabilityId": null,
+    "acknowledgementComments": null
+  }
+]

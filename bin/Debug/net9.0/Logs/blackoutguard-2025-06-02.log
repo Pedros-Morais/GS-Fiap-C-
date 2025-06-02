@@ -1,0 +1,97 @@
+[2025-06-02 15:35:17] [INFO] Created data directory: /Users/pedromorais/Desktop/programming/BlackoutGuard/bin/Debug/net9.0/Data
+[2025-06-02 15:35:17] [INFO] Initialized data file: /Users/pedromorais/Desktop/programming/BlackoutGuard/bin/Debug/net9.0/Data/users.json
+[2025-06-02 15:35:17] [INFO] Initialized data file: /Users/pedromorais/Desktop/programming/BlackoutGuard/bin/Debug/net9.0/Data/threats.json
+[2025-06-02 15:35:17] [INFO] Initialized data file: /Users/pedromorais/Desktop/programming/BlackoutGuard/bin/Debug/net9.0/Data/incidents.json
+[2025-06-02 15:35:17] [INFO] Initialized data file: /Users/pedromorais/Desktop/programming/BlackoutGuard/bin/Debug/net9.0/Data/vulnerabilities.json
+[2025-06-02 15:35:17] [INFO] Initialized data file: /Users/pedromorais/Desktop/programming/BlackoutGuard/bin/Debug/net9.0/Data/alerts.json
+[2025-06-02 15:35:17] [INFO] Created directory: /Users/pedromorais/Desktop/programming/BlackoutGuard/bin/Debug/net9.0/Data/Backups
+[2025-06-02 15:35:17] [INFO] Created directory: /Users/pedromorais/Desktop/programming/BlackoutGuard/bin/Debug/net9.0/Data/Exports
+[2025-06-02 15:35:17] [INFO] Created directory: /Users/pedromorais/Desktop/programming/BlackoutGuard/bin/Debug/net9.0/Data/Reports
+[2025-06-02 15:35:17] [INFO] Created directory: /Users/pedromorais/Desktop/programming/BlackoutGuard/bin/Debug/net9.0/Data/Temp
+[2025-06-02 15:35:17] [INFO] All services initialized successfully
+[2025-06-02 15:35:17] [INFO] User saved: admin
+[2025-06-02 15:35:17] [INFO] New user registered: admin
+[2025-06-02 15:35:17] [SECURITY] Created default administrator account
+[2025-06-02 15:35:17] [ERROR] Error creating default admin: Cannot read keys when either application does not have a console or when console input has been redirected. Try Console.Read.
+[2025-06-02 15:35:17] [SYSTEM] BlackoutGuard system started
+[2025-06-02 15:35:17] [ERROR] Error in authentication menu: count ('-1') must be a non-negative value. (Parameter 'count')
+Actual value was -1.
+[2025-06-02 15:35:17] [ERROR] Unhandled exception in main application loop: Cannot read keys when either application does not have a console or when console input has been redirected. Try Console.Read.
+[2025-06-02 15:35:36] [INFO] All services initialized successfully
+[2025-06-02 15:35:36] [SYSTEM] BlackoutGuard system started
+[2025-06-02 15:35:41] [WARNING] Login attempt failed: User not found: AAA
+[2025-06-02 15:35:41] [SECURITY] Failed login attempt for username AAA
+[2025-06-02 15:35:55] [INFO] User saved: Pedro
+[2025-06-02 15:35:55] [INFO] New user registered: Pedro
+[2025-06-02 15:35:55] [SECURITY] New user registered: Pedro with role Administrator
+[2025-06-02 15:36:02] [WARNING] Login attempt failed: Invalid password for user: Pedro
+[2025-06-02 15:36:02] [SECURITY] Failed login attempt for username Pedro
+[2025-06-02 15:36:10] [WARNING] Login attempt failed: Invalid password for user: Pedro
+[2025-06-02 15:36:10] [SECURITY] Failed login attempt for username Pedro
+[2025-06-02 15:36:15] [WARNING] Login attempt failed: Invalid password for user: Pedro
+[2025-06-02 15:36:15] [SECURITY] Failed login attempt for username Pedro
+[2025-06-02 15:36:23] [ERROR] Error during user registration: Username 'pedro' is already taken
+[2025-06-02 15:36:23] [ERROR] Registration error: Username 'pedro' is already taken
+[2025-06-02 15:36:32] [INFO] User saved: gui
+[2025-06-02 15:36:32] [INFO] New user registered: gui
+[2025-06-02 15:36:32] [SECURITY] New user registered: gui with role Administrator
+[2025-06-02 15:36:36] [WARNING] Login attempt failed: Invalid password for user: gui
+[2025-06-02 15:36:36] [SECURITY] Failed login attempt for username gui
+[2025-06-02 15:37:12] [WARNING] Login attempt failed: Invalid password for user: admin
+[2025-06-02 15:37:12] [SECURITY] Failed login attempt for username admin
+[2025-06-02 15:37:20] [WARNING] Login attempt failed: Invalid password for user: admin
+[2025-06-02 15:37:20] [SECURITY] Failed login attempt for username admin
+[2025-06-02 15:38:55] [INFO] All services initialized successfully
+[2025-06-02 15:38:55] [SYSTEM] BlackoutGuard system started
+[2025-06-02 15:39:01] [WARNING] Login attempt failed: Invalid password for user: admin
+[2025-06-02 15:39:01] [SECURITY] Failed login attempt for username admin
+[2025-06-02 15:39:37] [WARNING] Login attempt failed: Invalid password for user: admin
+[2025-06-02 15:39:37] [SECURITY] Failed login attempt for username admin
+[2025-06-02 15:39:49] [INFO] User saved: teste
+[2025-06-02 15:39:49] [INFO] New user registered: teste
+[2025-06-02 15:39:49] [SECURITY] New user registered: teste with role Administrator
+[2025-06-02 15:39:55] [WARNING] Login attempt failed: Invalid password for user: teste
+[2025-06-02 15:39:55] [SECURITY] Failed login attempt for username teste
+[2025-06-02 15:42:12] [INFO] Initialized data file: /Users/pedromorais/Desktop/programming/BlackoutGuard/bin/Debug/net9.0/Data/users.json
+[2025-06-02 15:42:12] [INFO] All services initialized successfully
+[2025-06-02 15:42:12] [INFO] User saved: admin
+[2025-06-02 15:42:12] [INFO] New user registered: admin
+[2025-06-02 15:42:12] [SECURITY] Created default administrator account
+[2025-06-02 15:42:19] [SYSTEM] BlackoutGuard system started
+[2025-06-02 15:42:43] [ERROR] Error updating user: User with ID c2aab25d-0adb-420e-a78c-11ffa28c6340 not found
+[2025-06-02 15:42:43] [ERROR] Error during authentication: User with ID c2aab25d-0adb-420e-a78c-11ffa28c6340 not found
+[2025-06-02 15:42:43] [ERROR] Error during login: User with ID c2aab25d-0adb-420e-a78c-11ffa28c6340 not found
+[2025-06-02 15:42:43] [ERROR] Login error: User with ID c2aab25d-0adb-420e-a78c-11ffa28c6340 not found
+[2025-06-02 15:43:03] [INFO] User saved: teste
+[2025-06-02 15:43:03] [INFO] New user registered: teste
+[2025-06-02 15:43:03] [SECURITY] New user registered: teste with role Administrator
+[2025-06-02 15:43:08] [ERROR] Error updating user: User with ID e249bdd0-e1d9-4110-8bd3-738f5860fac7 not found
+[2025-06-02 15:43:08] [ERROR] Error during authentication: User with ID e249bdd0-e1d9-4110-8bd3-738f5860fac7 not found
+[2025-06-02 15:43:08] [ERROR] Error during login: User with ID e249bdd0-e1d9-4110-8bd3-738f5860fac7 not found
+[2025-06-02 15:43:08] [ERROR] Login error: User with ID e249bdd0-e1d9-4110-8bd3-738f5860fac7 not found
+[2025-06-02 15:45:07] [INFO] All services initialized successfully
+[2025-06-02 15:45:07] [SYSTEM] BlackoutGuard system started
+[2025-06-02 15:45:10] [ERROR] Error updating user: User with ID daad2218-68d2-4c5b-b571-147495165172 not found
+[2025-06-02 15:45:10] [ERROR] Error during authentication: User with ID daad2218-68d2-4c5b-b571-147495165172 not found
+[2025-06-02 15:45:10] [ERROR] Error during login: User with ID daad2218-68d2-4c5b-b571-147495165172 not found
+[2025-06-02 15:45:10] [ERROR] Login error: User with ID daad2218-68d2-4c5b-b571-147495165172 not found
+[2025-06-02 15:46:16] [INFO] All services initialized successfully
+[2025-06-02 15:46:16] [SYSTEM] BlackoutGuard system started
+[2025-06-02 15:46:22] [ERROR] Error updating user: User with ID 6281c566-df3f-4ef8-92a4-257d1d08b2bb not found
+[2025-06-02 15:46:22] [ERROR] Error updating last login time: User with ID 6281c566-df3f-4ef8-92a4-257d1d08b2bb not found
+[2025-06-02 15:46:22] [INFO] User logged in successfully: teste
+[2025-06-02 15:46:22] [SECURITY] User teste logged in successfully
+[2025-06-02 15:47:58] [INFO] Incident saved: Teste
+[2025-06-02 15:47:58] [INFO] New incident created: Teste with severity High
+[2025-06-02 15:47:58] [INFO] Alert saved: New Incident: Teste
+[2025-06-02 15:47:58] [INFO] Created new Incident-related alert: New Incident: Teste with priority High
+[2025-06-02 15:47:58] [INFO] New incident registered: Teste by teste
+[2025-06-02 17:08:58] [INFO] All services initialized successfully
+[2025-06-02 17:08:58] [SYSTEM] BlackoutGuard system started
+[2025-06-02 17:09:01] [ERROR] Error updating user: User with ID 6f23e77f-bc7f-4f93-9463-89c8a753cc0c not found
+[2025-06-02 17:09:01] [ERROR] Error updating last login time: User with ID 6f23e77f-bc7f-4f93-9463-89c8a753cc0c not found
+[2025-06-02 17:09:01] [INFO] User logged in successfully: teste
+[2025-06-02 17:09:01] [SECURITY] User teste logged in successfully
+[2025-06-02 17:15:13] [INFO] All services initialized successfully
+[2025-06-02 17:15:13] [SYSTEM] BlackoutGuard system started
+[2025-06-02 17:17:44] [SYSTEM] BlackoutGuard system shutting down

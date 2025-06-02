@@ -348,21 +348,21 @@ namespace BlackoutGuard.UI
             
             try
             {
-                Console.Write("Enter incident ID: ");
+                Console.Write("Enter incident ID (full or partial): ");
                 string? idInput = Console.ReadLine();
                 
-                if (string.IsNullOrWhiteSpace(idInput) || !Guid.TryParse(idInput, out Guid id))
+                if (string.IsNullOrWhiteSpace(idInput))
                 {
-                    ConsoleHelper.DisplayError("Invalid incident ID.");
+                    ConsoleHelper.DisplayError("Incident ID cannot be empty.");
                     ConsoleHelper.WaitForKeyPress();
                     return;
                 }
                 
-                var incident = await _incidentService.GetIncidentByIdAsync(id);
+                var incident = await _incidentService.FindIncidentByPartialIdAsync(idInput);
                 
                 if (incident == null)
                 {
-                    ConsoleHelper.DisplayError($"Incident with ID {id} not found.");
+                    ConsoleHelper.DisplayError($"No incident matching ID '{idInput}' was found.");
                     ConsoleHelper.WaitForKeyPress();
                     return;
                 }
@@ -394,7 +394,7 @@ namespace BlackoutGuard.UI
                     return;
                 }
                 
-                await _incidentService.UpdateIncidentStatusAsync(id, newStatus, _currentUser.Username);
+                await _incidentService.UpdateIncidentStatusAsync(incident.Id, newStatus, _currentUser.Username);
                 
                 ConsoleHelper.DisplaySuccess($"Incident status updated to {newStatus}.");
                 _logService.LogInfo($"Incident {incident.Title} status updated from {incident.Status} to {newStatus} by {_currentUser.Username}");
@@ -419,21 +419,21 @@ namespace BlackoutGuard.UI
             
             try
             {
-                Console.Write("Enter incident ID: ");
+                Console.Write("Enter incident ID (full or partial): ");
                 string? idInput = Console.ReadLine();
                 
-                if (string.IsNullOrWhiteSpace(idInput) || !Guid.TryParse(idInput, out Guid id))
+                if (string.IsNullOrWhiteSpace(idInput))
                 {
-                    ConsoleHelper.DisplayError("Invalid incident ID.");
+                    ConsoleHelper.DisplayError("Incident ID cannot be empty.");
                     ConsoleHelper.WaitForKeyPress();
                     return;
                 }
                 
-                var incident = await _incidentService.GetIncidentByIdAsync(id);
+                var incident = await _incidentService.FindIncidentByPartialIdAsync(idInput);
                 
                 if (incident == null)
                 {
-                    ConsoleHelper.DisplayError($"Incident with ID {id} not found.");
+                    ConsoleHelper.DisplayError($"No incident matching ID '{idInput}' was found.");
                     ConsoleHelper.WaitForKeyPress();
                     return;
                 }
@@ -451,7 +451,7 @@ namespace BlackoutGuard.UI
                     return;
                 }
                 
-                await _incidentService.AddIncidentActionAsync(id, actionDescription, _currentUser.Username);
+                await _incidentService.AddIncidentActionAsync(incident.Id, actionDescription, _currentUser.Username);
                 
                 ConsoleHelper.DisplaySuccess("Action added successfully.");
                 _logService.LogInfo($"Action added to incident {incident.Title} by {_currentUser.Username}: {actionDescription}");
@@ -476,21 +476,21 @@ namespace BlackoutGuard.UI
             
             try
             {
-                Console.Write("Enter incident ID: ");
+                Console.Write("Enter incident ID (full or partial): ");
                 string? idInput = Console.ReadLine();
                 
-                if (string.IsNullOrWhiteSpace(idInput) || !Guid.TryParse(idInput, out Guid id))
+                if (string.IsNullOrWhiteSpace(idInput))
                 {
-                    ConsoleHelper.DisplayError("Invalid incident ID.");
+                    ConsoleHelper.DisplayError("Incident ID cannot be empty.");
                     ConsoleHelper.WaitForKeyPress();
                     return;
                 }
                 
-                var incident = await _incidentService.GetIncidentByIdAsync(id);
+                var incident = await _incidentService.FindIncidentByPartialIdAsync(idInput);
                 
                 if (incident == null)
                 {
-                    ConsoleHelper.DisplayError($"Incident with ID {id} not found.");
+                    ConsoleHelper.DisplayError($"No incident matching ID '{idInput}' was found.");
                     ConsoleHelper.WaitForKeyPress();
                     return;
                 }
@@ -508,7 +508,7 @@ namespace BlackoutGuard.UI
                     return;
                 }
                 
-                await _incidentService.AssignIncidentAsync(id, assignee);
+                await _incidentService.AssignIncidentAsync(incident.Id, assignee);
                 
                 ConsoleHelper.DisplaySuccess($"Incident assigned to {assignee} successfully.");
                 _logService.LogInfo($"Incident {incident.Title} assigned to {assignee} by {_currentUser.Username}");
@@ -533,21 +533,21 @@ namespace BlackoutGuard.UI
             
             try
             {
-                Console.Write("Enter incident ID: ");
+                Console.Write("Enter incident ID (full or partial): ");
                 string? idInput = Console.ReadLine();
                 
-                if (string.IsNullOrWhiteSpace(idInput) || !Guid.TryParse(idInput, out Guid id))
+                if (string.IsNullOrWhiteSpace(idInput))
                 {
-                    ConsoleHelper.DisplayError("Invalid incident ID.");
+                    ConsoleHelper.DisplayError("Incident ID cannot be empty.");
                     ConsoleHelper.WaitForKeyPress();
                     return;
                 }
                 
-                var incident = await _incidentService.GetIncidentByIdAsync(id);
+                var incident = await _incidentService.FindIncidentByPartialIdAsync(idInput);
                 
                 if (incident == null)
                 {
-                    ConsoleHelper.DisplayError($"Incident with ID {id} not found.");
+                    ConsoleHelper.DisplayError($"No incident matching ID '{idInput}' was found.");
                     ConsoleHelper.WaitForKeyPress();
                     return;
                 }
@@ -582,7 +582,7 @@ namespace BlackoutGuard.UI
                     return;
                 }
                 
-                await _incidentService.ResolveIncidentAsync(id, _currentUser.Username, rootCause, duration);
+                await _incidentService.ResolveIncidentAsync(incident.Id, _currentUser.Username, rootCause, duration);
                 
                 ConsoleHelper.DisplaySuccess("Incident resolved successfully.");
                 _logService.LogInfo($"Incident {incident.Title} resolved by {_currentUser.Username}");
@@ -607,21 +607,21 @@ namespace BlackoutGuard.UI
             
             try
             {
-                Console.Write("Enter incident ID: ");
+                Console.Write("Enter incident ID (full or partial): ");
                 string? idInput = Console.ReadLine();
                 
-                if (string.IsNullOrWhiteSpace(idInput) || !Guid.TryParse(idInput, out Guid id))
+                if (string.IsNullOrWhiteSpace(idInput))
                 {
-                    ConsoleHelper.DisplayError("Invalid incident ID.");
+                    ConsoleHelper.DisplayError("Incident ID cannot be empty.");
                     ConsoleHelper.WaitForKeyPress();
                     return;
                 }
                 
-                var incident = await _incidentService.GetIncidentByIdAsync(id);
+                var incident = await _incidentService.FindIncidentByPartialIdAsync(idInput);
                 
                 if (incident == null)
                 {
-                    ConsoleHelper.DisplayError($"Incident with ID {id} not found.");
+                    ConsoleHelper.DisplayError($"No incident matching ID '{idInput}' was found.");
                     ConsoleHelper.WaitForKeyPress();
                     return;
                 }

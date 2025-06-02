@@ -128,6 +128,34 @@ namespace BlackoutGuard.Services
                 throw;
             }
         }
+        
+        /// <summary>
+        /// Finds an incident by a partial ID string (prefix matching)
+        /// </summary>
+        public async Task<Incident?> FindIncidentByPartialIdAsync(string partialId)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(partialId))
+                    return null;
+                    
+                // If it's a full valid GUID, use the direct method
+                if (Guid.TryParse(partialId, out Guid fullId))
+                    return await GetIncidentByIdAsync(fullId);
+                
+                // Otherwise search by prefix
+                var allIncidents = await GetAllIncidentsAsync();
+                var matchingIncident = allIncidents.FirstOrDefault(i => 
+                    i.Id.ToString().StartsWith(partialId, StringComparison.OrdinalIgnoreCase));
+                    
+                return matchingIncident;
+            }
+            catch (Exception ex)
+            {
+                _logService.LogError($"Error finding incident by partial ID: {ex.Message}");
+                throw;
+            }
+        }
 
         /// <summary>
         /// Gets open incidents

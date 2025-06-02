@@ -1,0 +1,26 @@
+[
+  {
+    "id": "222d06f9-69c9-47b8-a17c-fbffbfa166ab",
+    "fullName": "System Administrator",
+    "username": "admin",
+    "passwordHash": "uJwSU81DegHJjvo48r5lpDd0FPvlZ2VSF3tTcwnNR54=",
+    "salt": "JIaGT44ZE45fOXv5EqTs8toG0TPisopKuIVBwZ2d23w=",
+    "email": null,
+    "role": 0,
+    "createdAt": "2025-06-02T18:42:12.919474Z",
+    "lastLoginAt": null,
+    "isActive": true
+  },
+  {
+    "id": "e2bc02a8-bbb7-4846-824f-556aac574434",
+    "fullName": "teste",
+    "username": "teste",
+    "passwordHash": "UrL81DEtnDaZGlVkff7frYPgL6g6dtV6e1qxVHtl2jI=",
+    "salt": "SDLj7c0o6XMGBQdWmrmkkQ9TgnkykQTUvtZly5zBKps=",
+    "email": null,
+    "role": 0,
+    "createdAt": "2025-06-02T18:43:03.764379Z",
+    "lastLoginAt": null,
+    "isActive": true
+  }
+]

@@ -203,6 +203,7 @@ namespace BlackoutGuard.Models
         HumanError,         // Mistakes by personnel
         CyberAttack,        // Deliberate cyber attack
         PhysicalAttack,     // Physical attack on infrastructure
-        UnplannedMaintenance // Sudden maintenance requirement
+        UnplannedMaintenance, // Sudden maintenance requirement
+        Other               // Miscellaneous incidents not covered by other types
     }
 }

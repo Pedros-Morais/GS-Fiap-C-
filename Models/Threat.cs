@@ -63,6 +63,17 @@ namespace BlackoutGuard.Models
             DetectedAt = DateTime.UtcNow;
             Status = ThreatStatus.Active;
             Actions = new List<ThreatAction>();
+            
+            // Initialize non-nullable string properties
+            Name = "Unnamed Threat";
+            Description = "No description provided";
+            Source = "Unknown";
+            Target = "Unknown";
+            PotentialImpact = "Unknown";
+            RecommendedActions = "None";
+            ReportedBy = "System";
+            ResolvedBy = "None";
+            DetectedBy = "System";
         }
 
         // Constructor with required fields
@@ -75,11 +86,17 @@ namespace BlackoutGuard.Models
             Severity = severity;
             Type = type;
             DetectedAt = DateTime.UtcNow;
-            Source = source;
-            Target = target;
+            Source = source ?? "Unknown";
+            Target = target ?? "Unknown";
             Status = ThreatStatus.Active;
-            ReportedBy = reportedBy;
+            ReportedBy = reportedBy ?? "System";
             Actions = new List<ThreatAction>();
+            
+            // Initialize remaining non-nullable string properties
+            PotentialImpact = "Unknown";
+            RecommendedActions = "None";
+            ResolvedBy = "None";
+            DetectedBy = reportedBy ?? "System";
         }
 
         /// <summary>

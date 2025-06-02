@@ -29,7 +29,7 @@ namespace BlackoutGuard.UI
         public static void DisplayError(string message)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"\nERROR: {message}");
+            Console.WriteLine($"\nERRO: {message}");
             Console.ResetColor();
         }
         
@@ -39,7 +39,17 @@ namespace BlackoutGuard.UI
         public static void DisplaySuccess(string message)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\nSUCCESS: {message}");
+            Console.WriteLine($"\nSUCESSO: {message}");
+            Console.ResetColor();
+        }
+        
+        /// <summary>
+        /// Displays a warning message
+        /// </summary>
+        public static void DisplayWarning(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine($"\nAVISO: {message}");
             Console.ResetColor();
         }
         
@@ -49,7 +59,7 @@ namespace BlackoutGuard.UI
         public static void DisplayInfo(string message)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"\nINFO: {message}");
+            Console.WriteLine($"\nINFORMAÇÃO: {message}");
             Console.ResetColor();
         }
         
@@ -58,7 +68,7 @@ namespace BlackoutGuard.UI
         /// </summary>
         public static void WaitForKeyPress()
         {
-            Console.WriteLine("\nPress any key to continue...");
+            Console.WriteLine("\nPressione qualquer tecla para continuar...");
             Console.ReadKey(true);
         }
         

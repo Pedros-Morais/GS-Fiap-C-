@@ -269,14 +269,18 @@ namespace BlackoutGuard.UI
                 Console.Write("\nSource: ");
                 string? source = Console.ReadLine();
                 
-                if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(description) || string.IsNullOrWhiteSpace(source))
+                Console.Write("\nTarget System: ");
+                string? target = Console.ReadLine();
+                
+                if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(description) || 
+                    string.IsNullOrWhiteSpace(source) || string.IsNullOrWhiteSpace(target))
                 {
                     ConsoleHelper.DisplayError("All fields are required.");
                     ConsoleHelper.WaitForKeyPress();
                     return;
                 }
                 
-                Threat threat = await _threatService.CreateThreatAsync(name, description, severity, type, source, _currentUser.Username);
+                Threat threat = await _threatService.CreateThreatAsync(name, description, severity, type, source, target, _currentUser.Username);
                 
                 ConsoleHelper.DisplaySuccess($"Threat '{threat.Name}' registered successfully with ID: {threat.Id}");
                 _logService.LogSecurity($"New threat registered: {threat.Name} by {_currentUser.Username}");

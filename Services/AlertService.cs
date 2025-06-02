@@ -25,6 +25,14 @@ namespace BlackoutGuard.Services
         /// </summary>
         public async Task<Alert> CreateAlertAsync(string title, string message, AlertPriority priority, AlertType type)
         {
+            return await CreateAlertAsync(title, message, priority, type, null, null, null);
+        }
+        
+        /// <summary>
+        /// Creates a new alert with additional metadata
+        /// </summary>
+        public async Task<Alert> CreateAlertAsync(string title, string message, AlertPriority priority, AlertType type, string source, Guid? relatedEntityId, string relatedEntityType)
+        {
             try
             {
                 if (string.IsNullOrWhiteSpace(title))
@@ -34,6 +42,21 @@ namespace BlackoutGuard.Services
                     throw new ArgumentException("Alert message cannot be empty", nameof(message));
                 
                 var alert = new Alert(title, message, priority, type);
+                
+                // Set additional metadata if provided
+                if (!string.IsNullOrWhiteSpace(source))
+                    alert.Source = source;
+                    
+                if (relatedEntityId.HasValue)
+                {
+                    if (relatedEntityType == "Incident")
+                        alert.RelatedIncidentId = relatedEntityId;
+                    else if (relatedEntityType == "Threat")
+                        alert.RelatedThreatId = relatedEntityId;
+                    else if (relatedEntityType == "Vulnerability")
+                        alert.RelatedVulnerabilityId = relatedEntityId;
+                }
+                
                 await _dataService.SaveAlertAsync(alert);
                 
                 _logService.LogInfo($"Created new alert: {title} with priority {priority}");
@@ -202,6 +225,23 @@ namespace BlackoutGuard.Services
         }
 
         /// <summary>
+        /// Gets unacknowledged alerts
+        /// </summary>
+        public async Task<List<Alert>> GetUnacknowledgedAlertsAsync()
+        {
+            try
+            {
+                var alerts = await _dataService.GetAllAlertsAsync();
+                return alerts.Where(a => a.Acknowledged == false).ToList();
+            }
+            catch (Exception ex)
+            {
+                _logService.LogError($"Error getting unacknowledged alerts: {ex.Message}");
+                throw;
+            }
+        }
+        
+        /// <summary>
         /// Gets high priority alerts
         /// </summary>
         public async Task<List<Alert>> GetHighPriorityAlertsAsync()
@@ -279,7 +319,7 @@ namespace BlackoutGuard.Services
         /// <summary>
         /// Acknowledges an alert
         /// </summary>
-        public async Task AcknowledgeAlertAsync(Guid id, string acknowledgedBy)
+        public async Task AcknowledgeAlertAsync(Guid id, string acknowledgedBy, string comments = "")
         {
             try
             {
@@ -290,9 +330,14 @@ namespace BlackoutGuard.Services
                 }
                 
                 alert.Acknowledge(acknowledgedBy);
+                alert.AcknowledgementComments = comments;
                 await _dataService.UpdateAlertAsync(alert);
                 
                 _logService.LogInfo($"Alert acknowledged: {alert.Title} by {acknowledgedBy}");
+                if (!string.IsNullOrWhiteSpace(comments))
+                {
+                    _logService.LogInfo($"Acknowledgement comments: {comments}");
+                }
             }
             catch (Exception ex)
             {

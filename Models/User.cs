@@ -18,11 +18,9 @@ namespace BlackoutGuard.Models
         public string Username { get; set; }
         
         // Password hash - never store plain passwords
-        [JsonIgnore]
         public string PasswordHash { get; set; }
         
         // Salt used for password hashing
-        [JsonIgnore]
         public string Salt { get; set; }
         
         // User's email address
@@ -32,7 +30,7 @@ namespace BlackoutGuard.Models
         public UserRole Role { get; set; }
         
         // When the user was created
-        public DateTime CreatedAt { get; private set; }
+        public DateTime CreatedAt { get; set; }
         
         // Last login timestamp
         public DateTime? LastLoginAt { get; set; }

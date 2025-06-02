@@ -38,23 +38,50 @@ namespace BlackoutGuard.Services
         /// <summary>
         /// Logs in a user with the given credentials
         /// </summary>
-        public async Task<bool> LoginAsync(string username, string password)
+        public async Task<User> LoginAsync(string username, string password)
         {
             try
             {
-                // Attempt to get the authenticated user
-                var user = await AuthenticateUserAsync(username, password);
+                // Get the user directly from the data store by username
+                var user = await _dataService.GetUserByUsernameAsync(username);
                 if (user == null)
                 {
-                    return false;
+                    _logService.LogWarning($"Login attempt failed: User not found: {username}");
+                    return null;
+                }
+                
+                // Check if the account is active
+                if (!user.IsActive)
+                {
+                    _logService.LogWarning($"Login attempt failed: Account is disabled: {username}");
+                    return null;
+                }
+                
+                // Verify the password
+                if (!VerifyPassword(password, user.PasswordHash, user.Salt))
+                {
+                    _logService.LogWarning($"Login attempt failed: Invalid password for user: {username}");
+                    return null;
                 }
                 
                 // Set the current user
                 _currentUser = user;
                 
+                // Update last login time
+                user.LastLoginAt = DateTime.UtcNow;
+                
+                try {
+                    await _dataService.UpdateUserAsync(user);
+                }
+                catch (Exception updateEx)
+                {
+                    // Just log the error but don't fail the login
+                    _logService.LogError($"Error updating last login time: {updateEx.Message}");
+                }
+                
                 // Log the successful login
                 _logService.LogInfo($"User logged in successfully: {username}");
-                return true;
+                return user;
             }
             catch (Exception ex)
             {

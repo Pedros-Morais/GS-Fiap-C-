@@ -3,3 +3,13 @@
 /Users/pedromorais/Desktop/programming/BlackoutGuard/obj/Debug/net9.0/BlackoutGuard.AssemblyInfo.cs
 /Users/pedromorais/Desktop/programming/BlackoutGuard/obj/Debug/net9.0/BlackoutGuard.csproj.CoreCompileInputs.cache
 /Users/pedromorais/Desktop/programming/BlackoutGuard/obj/Debug/net9.0/BlackoutGuard.sourcelink.json
+/Users/pedromorais/Desktop/programming/BlackoutGuard/bin/Debug/net9.0/BlackoutGuard
+/Users/pedromorais/Desktop/programming/BlackoutGuard/bin/Debug/net9.0/BlackoutGuard.deps.json
+/Users/pedromorais/Desktop/programming/BlackoutGuard/bin/Debug/net9.0/BlackoutGuard.runtimeconfig.json
+/Users/pedromorais/Desktop/programming/BlackoutGuard/bin/Debug/net9.0/BlackoutGuard.dll
+/Users/pedromorais/Desktop/programming/BlackoutGuard/bin/Debug/net9.0/BlackoutGuard.pdb
+/Users/pedromorais/Desktop/programming/BlackoutGuard/obj/Debug/net9.0/BlackoutGuard.dll
+/Users/pedromorais/Desktop/programming/BlackoutGuard/obj/Debug/net9.0/refint/BlackoutGuard.dll
+/Users/pedromorais/Desktop/programming/BlackoutGuard/obj/Debug/net9.0/BlackoutGuard.pdb
+/Users/pedromorais/Desktop/programming/BlackoutGuard/obj/Debug/net9.0/BlackoutGuard.genruntimeconfig.cache
+/Users/pedromorais/Desktop/programming/BlackoutGuard/obj/Debug/net9.0/ref/BlackoutGuard.dll

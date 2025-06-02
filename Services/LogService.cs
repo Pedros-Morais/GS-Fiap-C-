@@ -64,6 +64,14 @@ namespace BlackoutGuard.Services
         {
             LogMessageAsync("SECURITY", message).ConfigureAwait(false);
         }
+        
+        /// <summary>
+        /// Logs a system-related message
+        /// </summary>
+        public void LogSystem(string message)
+        {
+            LogMessageAsync("SYSTEM", message).ConfigureAwait(false);
+        }
 
         /// <summary>
         /// Logs an audit message for compliance purposes
@@ -157,15 +165,15 @@ namespace BlackoutGuard.Services
         /// Gets log entries related to a specific user
         /// </summary>
         /// <param name="username">The username to filter logs for</param>
-        /// <returns>A list of log messages for the specified user</returns>
-        public async Task<List<string>> GetUserLogsAsync(string username)
+        /// <returns>A list of log entries for the specified user</returns>
+        public async Task<List<LogEntry>> GetUserLogsAsync(string username)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(username))
                     throw new ArgumentException("Username cannot be empty", nameof(username));
                 
-                var result = new List<string>();
+                var result = new List<LogEntry>();
                 var logFiles = Directory.GetFiles(_logDirectory, "blackoutguard-*.log");
                 
                 // Sort log files by date (newest first)
@@ -182,7 +190,15 @@ namespace BlackoutGuard.Services
                         (line.Contains("User") && line.Contains(username, StringComparison.OrdinalIgnoreCase)))
                         .ToList();
                     
-                    result.AddRange(userLines);
+                    // Parse each line into a LogEntry
+                    foreach (var line in userLines)
+                    {
+                        var logEntry = ParseLogLine(line);
+                        if (logEntry != null)
+                        {
+                            result.Add(logEntry);
+                        }
+                    }
                 }
                 
                 return result;
@@ -190,7 +206,7 @@ namespace BlackoutGuard.Services
             catch (Exception ex)
             {
                 LogError($"Error retrieving user logs: {ex.Message}");
-                return new List<string>();
+                return new List<LogEntry>();
             }
         }
 
@@ -290,6 +306,51 @@ namespace BlackoutGuard.Services
             catch (Exception ex)
             {
                 LogError($"Error retrieving logs by type: {ex.Message}");
+                return new List<LogEntry>();
+            }
+        }
+        
+        /// <summary>
+        /// Retrieves all logs with pagination
+        /// </summary>
+        public async Task<List<LogEntry>> GetAllLogsAsync(int page = 1, int pageSize = 50)
+        {
+            try
+            {
+                if (page < 1) page = 1;
+                if (pageSize < 1) pageSize = 50;
+                
+                var allLogs = new List<LogEntry>();
+                var logFiles = Directory.GetFiles(_logDirectory, "blackoutguard-*.log");
+                
+                // Sort log files by date (newest first)
+                Array.Sort(logFiles, (a, b) => String.Compare(b, a, StringComparison.Ordinal));
+                
+                foreach (var logFile in logFiles)
+                {
+                    var logContent = await File.ReadAllTextAsync(logFile);
+                    var logLines = logContent.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+                    
+                    foreach (var line in logLines)
+                    {
+                        var logEntry = ParseLogLine(line);
+                        if (logEntry != null)
+                        {
+                            allLogs.Add(logEntry);
+                        }
+                    }
+                }
+                
+                // Apply pagination
+                int skip = (page - 1) * pageSize;
+                return allLogs.OrderByDescending(l => l.Timestamp)
+                              .Skip(skip)
+                              .Take(pageSize)
+                              .ToList();
+            }
+            catch (Exception ex)
+            {
+                LogError($"Error retrieving all logs: {ex.Message}");
                 return new List<LogEntry>();
             }
         }

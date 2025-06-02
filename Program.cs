@@ -41,8 +41,10 @@ namespace BlackoutGuard
                 Console.WriteLine("Initializing BlackoutGuard services...");
                 
                 // Create services in the correct order (dependency chain)
-                _logService = new LogService();
-                _dataService = new DataService(_logService);
+                string logDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
+                string dataDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
+                _logService = new LogService(logDirectory);
+                _dataService = new DataService(dataDirectory, _logService);
                 _authService = new AuthService(_dataService, _logService);
                 _alertService = new AlertService(_dataService, _logService);
                 _threatService = new ThreatService(_dataService, _logService, _alertService);
@@ -169,26 +171,26 @@ namespace BlackoutGuard
             while (true)
             {
                 Console.Clear();
-                ConsoleHelper.DisplayHeader("BLACKOUT GUARD - MAIN MENU");
-                Console.WriteLine($"Logged in as: {_currentUser.Username} ({_currentUser.Role})");
+                ConsoleHelper.DisplayHeader("BLACKOUT GUARD - MENU PRINCIPAL");
+                Console.WriteLine($"Logado como: {_currentUser.Username} ({_currentUser.Role})");
                 
-                Console.WriteLine("\n1. Threat Management");
-                Console.WriteLine("2. Incident Management");
-                Console.WriteLine("3. Vulnerability Management");
-                Console.WriteLine("4. Alert Management");
-                Console.WriteLine("5. System Logs");
+                Console.WriteLine("\n1. Gerenciamento de Ameaças");
+                Console.WriteLine("2. Gerenciamento de Incidentes");
+                Console.WriteLine("3. Gerenciamento de Vulnerabilidades");
+                Console.WriteLine("4. Gerenciamento de Alertas");
+                Console.WriteLine("5. Logs do Sistema");
                 
                 // Only show user management for administrators
                 if (_currentUser.Role == UserRole.Administrator)
                 {
-                    Console.WriteLine("6. User Management");
+                    Console.WriteLine("6. Gerenciamento de Usuários");
                 }
                 
-                Console.WriteLine("7. My Account");
-                Console.WriteLine("8. Logout");
-                Console.WriteLine("9. Exit Application");
+                Console.WriteLine("7. Minha Conta");
+                Console.WriteLine("8. Sair da Conta");
+                Console.WriteLine("9. Sair do Aplicativo");
                 
-                Console.Write("\nSelect an option: ");
+                Console.Write("\nSelecione uma opção: ");
                 string? choice = Console.ReadLine();
                 
                 try
@@ -414,7 +416,7 @@ namespace BlackoutGuard
                 Console.WriteLine("\n1. Change Password");
                 Console.WriteLine("2. Return to Main Menu");
                 
-                Console.Write("\nSelect an option: ");
+                Console.Write("\nSelecione uma opção: ");
                 string? choice = Console.ReadLine();
                 
                 switch (choice)
