@@ -5,6 +5,8 @@ Gustavo Vegi / RM550188
 Pedro Henrique Silva de Morais / RM98804
 
 ---
+# Video Pitch
+https://www.youtube.com/watch?v=v09cErSpkwc
 
 # Documentação Técnica do Projeto
 
