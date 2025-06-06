@@ -1,6 +1,6 @@
 [
   {
-    "id": "222d06f9-69c9-47b8-a17c-fbffbfa166ab",
+    "id": "bbf2987b-879d-4b22-bfbc-93ae437e16a6",
     "fullName": "System Administrator",
     "username": "admin",
     "passwordHash": "uJwSU81DegHJjvo48r5lpDd0FPvlZ2VSF3tTcwnNR54=",
@@ -12,7 +12,7 @@
     "isActive": true
   },
   {
-    "id": "e2bc02a8-bbb7-4846-824f-556aac574434",
+    "id": "1de68e54-57f8-4857-9f55-33e8a0efb0a6",
     "fullName": "teste",
     "username": "teste",
     "passwordHash": "UrL81DEtnDaZGlVkff7frYPgL6g6dtV6e1qxVHtl2jI=",
@@ -20,6 +20,30 @@
     "email": null,
     "role": 0,
     "createdAt": "2025-06-02T18:43:03.764379Z",
+    "lastLoginAt": null,
+    "isActive": true
+  },
+  {
+    "id": "c61c2b2d-a120-4b9f-8a85-24d244e06302",
+    "fullName": "Teste Global",
+    "username": "TesteGlobal",
+    "passwordHash": "lHJNSC9iubVUMc69FtENHbHMmEv/B331L56lRRcM55s=",
+    "salt": "7qrprUDK8\u002BrsSZm\u002BrTLjlnt3lj9z1qE25mpu4Nikx6Q=",
+    "email": null,
+    "role": 2,
+    "createdAt": "2025-06-06T21:42:33.936125Z",
+    "lastLoginAt": null,
+    "isActive": true
+  },
+  {
+    "id": "02667545-f316-4691-a5f2-623548a13e70",
+    "fullName": "Pedro Morais",
+    "username": "Pedro",
+    "passwordHash": "ECi56CYQYaoO6MZi2BIzDIXtJoPZvA2G4PspaRPCR1Y=",
+    "salt": "BQ\u002BDMoqkzwnpgNpW6udMKt8gWZ0/6GZ03vhszkIWoIk=",
+    "email": null,
+    "role": 0,
+    "createdAt": "2025-06-06T22:10:38.245191Z",
     "lastLoginAt": null,
     "isActive": true
   }

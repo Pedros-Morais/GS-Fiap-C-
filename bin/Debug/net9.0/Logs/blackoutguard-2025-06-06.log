@@ -1,0 +1,58 @@
+[2025-06-06 18:27:39] [INFO] All services initialized successfully
+[2025-06-06 18:27:39] [SYSTEM] BlackoutGuard system started
+[2025-06-06 18:42:33] [INFO] User saved: TesteGlobal
+[2025-06-06 18:42:33] [INFO] New user registered: TesteGlobal
+[2025-06-06 18:42:33] [SECURITY] New user registered: TesteGlobal with role Operator
+[2025-06-06 18:42:57] [ERROR] Error updating user: User with ID fe58a8c9-76f4-4380-8746-d681b13b63ed not found
+[2025-06-06 18:42:57] [ERROR] Error updating last login time: User with ID fe58a8c9-76f4-4380-8746-d681b13b63ed not found
+[2025-06-06 18:42:57] [INFO] User logged in successfully: TesteGlobal
+[2025-06-06 18:42:57] [SECURITY] User TesteGlobal logged in successfully
+[2025-06-06 18:43:44] [INFO] Threat saved: Explosao Gerador
+[2025-06-06 18:43:44] [SECURITY] New security threat created: Explosao Gerador with severity High
+[2025-06-06 18:43:44] [INFO] Alert saved: Security Threat: Explosao Gerador
+[2025-06-06 18:43:44] [INFO] Created new Threat-related alert: Security Threat: Explosao Gerador with priority High
+[2025-06-06 18:43:44] [SECURITY] New threat registered: Explosao Gerador by TesteGlobal
+[2025-06-06 18:45:07] [INFO] Incident saved: Incidente Queda de Arvore na Laguna
+[2025-06-06 18:45:07] [INFO] New incident created: Incidente Queda de Arvore na Laguna with severity Critical
+[2025-06-06 18:45:07] [INFO] Alert saved: New Incident: Incidente Queda de Arvore na Laguna
+[2025-06-06 18:45:07] [INFO] Created new Incident-related alert: New Incident: Incidente Queda de Arvore na Laguna with priority Critical
+[2025-06-06 18:45:07] [INFO] New incident registered: Incidente Queda de Arvore na Laguna by TesteGlobal
+[2025-06-06 18:46:08] [SYSTEM] BlackoutGuard system shutting down
+[2025-06-06 19:08:47] [INFO] All services initialized successfully
+[2025-06-06 19:08:47] [SYSTEM] BlackoutGuard system started
+[2025-06-06 19:10:38] [INFO] User saved: Pedro
+[2025-06-06 19:10:38] [INFO] New user registered: Pedro
+[2025-06-06 19:10:38] [SECURITY] New user registered: Pedro with role Administrator
+[2025-06-06 19:10:45] [ERROR] Error updating user: User with ID ffadf3b1-640a-42a7-8c0b-6ff2b0d1a0bb not found
+[2025-06-06 19:10:45] [ERROR] Error updating last login time: User with ID ffadf3b1-640a-42a7-8c0b-6ff2b0d1a0bb not found
+[2025-06-06 19:10:45] [INFO] User logged in successfully: Pedro
+[2025-06-06 19:10:45] [SECURITY] User Pedro logged in successfully
+[2025-06-06 19:12:58] [INFO] Threat saved: Pedro
+[2025-06-06 19:12:58] [SECURITY] New security threat created: Pedro with severity Medium
+[2025-06-06 19:12:58] [INFO] Alert saved: Security Threat: Pedro
+[2025-06-06 19:12:58] [INFO] Created new Threat-related alert: Security Threat: Pedro with priority Medium
+[2025-06-06 19:12:58] [SECURITY] New threat registered: Pedro by Pedro
+[2025-06-06 19:14:34] [INFO] Vulnerability saved: phishing
+[2025-06-06 19:14:34] [SECURITY] New vulnerability created: phishing with severity Medium
+[2025-06-06 19:14:34] [INFO] Alert saved: New Vulnerability: phishing
+[2025-06-06 19:14:34] [INFO] Created new Vulnerability-related alert: New Vulnerability: phishing with priority Medium
+[2025-06-06 19:14:34] [SECURITY] New vulnerability registered: phishing by Pedro
+[2025-06-06 19:15:09] [ERROR] Error viewing unacknowledged alerts: Object reference not set to an instance of an object.
+[2025-06-06 19:15:57] [SYSTEM] BlackoutGuard system shutting down
+[2025-06-06 19:16:39] [INFO] All services initialized successfully
+[2025-06-06 19:16:39] [SYSTEM] BlackoutGuard system started
+[2025-06-06 19:17:19] [ERROR] Error updating user: User with ID 7483f043-8b57-474d-bbe9-272fbfa65749 not found
+[2025-06-06 19:17:20] [ERROR] Error updating last login time: User with ID 7483f043-8b57-474d-bbe9-272fbfa65749 not found
+[2025-06-06 19:17:20] [INFO] User logged in successfully: Pedro
+[2025-06-06 19:17:20] [SECURITY] User Pedro logged in successfully
+[2025-06-06 19:18:15] [INFO] Incident saved: Ataque via email phishing
+[2025-06-06 19:18:15] [INFO] New incident created: Ataque via email phishing with severity Medium
+[2025-06-06 19:18:15] [INFO] Alert saved: New Incident: Ataque via email phishing
+[2025-06-06 19:18:15] [INFO] Created new Incident-related alert: New Incident: Ataque via email phishing with priority Medium
+[2025-06-06 19:18:15] [INFO] New incident registered: Ataque via email phishing by Pedro
+[2025-06-06 19:18:59] [INFO] Vulnerability saved: Phishing
+[2025-06-06 19:18:59] [SECURITY] New vulnerability created: Phishing with severity Critical
+[2025-06-06 19:18:59] [INFO] Alert saved: New Vulnerability: Phishing
+[2025-06-06 19:18:59] [INFO] Created new Vulnerability-related alert: New Vulnerability: Phishing with priority Critical
+[2025-06-06 19:18:59] [SECURITY] New vulnerability registered: Phishing by Pedro
+[2025-06-06 19:20:28] [SYSTEM] BlackoutGuard system shutting down

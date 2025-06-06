@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "id": "0b2a3a81-95b6-4bec-9462-31a948818460",
+    "name": "Explosao Gerador",
+    "description": "Explosao",
+    "severity": 2,
+    "type": 2,
+    "detectedAt": "2025-06-06T22:12:58.473718Z",
+    "source": "a",
+    "target": "Windows-232",
+    "status": 0,
+    "actions": [],
+    "potentialImpact": "Localized power disruptions possible\nCompromise of key grid control systems\nPotential data exfiltration of sensitive operational information",
+    "recommendedActions": "Escalate to security response team\nMonitor affected systems closely\nPrepare for potential isolation of systems\nActivate DDoS mitigation services\nIncrease bandwidth or implement rate limiting\nContact upstream providers for assistance",
+    "reportedBy": "TesteGlobal",
+    "resolvedBy": "None",
+    "detectedBy": "TesteGlobal",
+    "resolvedAt": null
+  },
+  {
+    "id": "486178c6-53b9-4d30-847b-8e0f6a2c90d1",
+    "name": "Pedro",
+    "description": "Pedro ameaca",
+    "severity": 1,
+    "type": 2,
+    "detectedAt": "2025-06-06T22:12:58.46706Z",
+    "source": "Source",
+    "target": "Windows-WW23",
+    "status": 0,
+    "actions": [],
+    "potentialImpact": "Degraded system performance and reliability\nLimited access to operational systems\nIncreased vulnerability to secondary attacks",
+    "recommendedActions": "Investigate the threat further\nIncrease monitoring of affected systems\nPrepare mitigation strategies\nActivate DDoS mitigation services\nIncrease bandwidth or implement rate limiting\nContact upstream providers for assistance",
+    "reportedBy": "Pedro",
+    "resolvedBy": "None",
+    "detectedBy": "Pedro",
+    "resolvedAt": null
+  }
+]

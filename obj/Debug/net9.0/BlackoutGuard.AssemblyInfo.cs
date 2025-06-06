@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BlackoutGuard")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+135b8bb5d6bd4f4d9efaf8740c1fdd56a40fbaeb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+830a738e2fb4fa72a0d25eff4beb8bf83ccba6a2")]
 [assembly: System.Reflection.AssemblyProductAttribute("BlackoutGuard")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BlackoutGuard")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

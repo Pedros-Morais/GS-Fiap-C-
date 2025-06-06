@@ -1,1 +1,36 @@
-[]
+[
+  {
+    "id": "5a0f888c-0fad-4cda-a4ac-8446a9283ffd",
+    "name": "phishing",
+    "description": "phising na fiap",
+    "discoveredAt": "2025-06-06T22:18:59.356832Z",
+    "status": 0,
+    "severity": 1,
+    "type": 0,
+    "affectedSystem": "Winwows-3ESR",
+    "cveId": null,
+    "cvssScore": null,
+    "remediationSteps": "Schedule patching during the next maintenance window.\nImplement available mitigations.\nMonitor security logs for potential exploitation.\nReview and strengthen authentication mechanisms.\nImplement multi-factor authentication if not already in place.\nAudit password policies and enforce strong password requirements.",
+    "discoveredBy": "Pedro",
+    "patchedBy": null,
+    "patchedAt": null,
+    "actions": []
+  },
+  {
+    "id": "80210937-26a5-450b-a5a6-75c8884d00ad",
+    "name": "Phishing",
+    "description": "Scam",
+    "discoveredAt": "2025-06-06T22:18:59.35304Z",
+    "status": 0,
+    "severity": 3,
+    "type": 2,
+    "affectedSystem": "Windows-3ESR",
+    "cveId": null,
+    "cvssScore": null,
+    "remediationSteps": "URGENT: Immediate action required.\nConsider taking affected systems offline until patched.\nImplement emergency workarounds until a permanent fix is available.\nUpdate to current cryptographic standards and algorithms.\nReview key management practices.\nEnsure proper implementation of cryptographic functions.",
+    "discoveredBy": "Pedro",
+    "patchedBy": null,
+    "patchedAt": null,
+    "actions": []
+  }
+]
